@@ -4,13 +4,33 @@ from datetime import datetime, timedelta
 # -------- Level 1 --------
 # TODO: Create a function to view all books that are currently available
 # Output should include book ID, title, and author
+print("Hello, you've entered the Library Management System!\n")
+def view_available_books():
+
+
+    print("Here's a list of our avaiable books:")
+for book in library_books:
+        if book['available']:
+            print(f"ID: {book['id']}, Title: {book['title']}, Author: {book['author']}")
+print("\nHere's a list of our available books!")
 
 
 # -------- Level 2 --------
 # TODO: Create a function to search books by author OR genre
 # Search should be case-insensitive
 # Return a list of matching books
+def search_books():
 
+
+    print("hello")
+    search = input("\nWould you like to search by author or genre? (a/g):")
+    if search == 'a':
+        search_author = input("Please enter author name to search:").lower()
+        for author in library_books:
+            if author['author'].lower() == search_author:
+                print(f"ID: {author['id']}, Title: {author['title']}, Author: {author['author']}")
+    elif search == 'g':
+        search_genre = input("Please enter genre to search:").lower()
 
 # -------- Level 3 --------
 # TODO: Create a function to checkout a book by ID
@@ -42,6 +62,6 @@ from datetime import datetime, timedelta
 # - Save/load catalog to file (CSV or JSON)
 # - Anything else you want to build on top of the system!
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # You can use this space to test your functions
-    pass
+    #pass
