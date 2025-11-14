@@ -5,32 +5,46 @@ from datetime import datetime, timedelta
 # TODO: Create a function to view all books that are currently available
 # Output should include book ID, title, and author
 print("Hello, you've entered the Library Management System!\n")
+
 def view_available_books():
-
-
-    print("Here's a list of our avaiable books:")
-for book in library_books:
-        if book['available']:
-            print(f"ID: {book['id']}, Title: {book['title']}, Author: {book['author']}")
-print("\nHere's a list of our available books!")
-
+    print("Here's a list of our available books:\n")
+    for book in library_books:
+        if book.get("available"):
+            print(f"ID: {book["id"]}, Title: {book["title"]}, Author: {book["author"]}")
+view_available_books()
 
 # -------- Level 2 --------
 # TODO: Create a function to search books by author OR genre
 # Search should be case-insensitive
 # Return a list of matching books
 def search_books():
-
-
-    print("hello")
-    search = input("\nWould you like to search by author or genre? (a/g):")
-    if search == 'a':
-        search_author = input("Please enter author name to search:").lower()
-        for author in library_books:
-            if author['author'].lower() == search_author:
-                print(f"ID: {author['id']}, Title: {author['title']}, Author: {author['author']}")
-    elif search == 'g':
-        search_genre = input("Please enter genre to search:").lower()
+    search_question = input("\nWould you like to search by author or genre? (a/g): ").lower()
+    if search_question == 'a':
+        search_author = input("Please enter author name to search: ").lower()
+        matches = [lb for lb in library_books if lb.get('author').lower() == search_author]
+        if matches == True:
+            print("Here are our books by that author:")
+            for author in matches:
+                print(f"ID: {author["id"]}, Title: {author["title"]}, Author: {author["author"]}")
+#figure out why neither print statement is working
+#something must be wrong with my indentation
+# get method might be better to use
+#try lb.get("author")
+#get author isnt working
+        else:
+            print("I dont think we have any books by that author.")
+    elif search_question == 'g':
+        search_genre = input("Please enter genre to search: ").strip().lower()
+        matches = [lb for lb in library_books if lb.get('genre').lower() == search_genre]
+        if matches:
+            print("Here are our books in that genre:")
+            for genre in matches:
+                print(f"ID: {genre['id']}, Title: {genre['title']}, Genre: {genre['genre']}")
+        else:
+            print("No books found in that genre.")
+    else:
+        print("Please enter a valid option.")
+search_books()
 
 # -------- Level 3 --------
 # TODO: Create a function to checkout a book by ID
@@ -41,27 +55,12 @@ def search_books():
 # If it is not available:
 #   - Print a message saying it's already checked out
 
+# (left as TODOs for further implementation)
 
-# -------- Level 4 --------
-# TODO: Create a function to return a book by ID
-# Set its availability to True and clear the due_date
-
-# TODO: Create a function to list all overdue books
-# A book is overdue if its due_date is before today AND it is still checked out
+if __name__ == "__main__":
+    view_available_books()
+    # call search_books() interactively if desired
+    # search_books()
 
 
-# -------- Level 5 --------
-# TODO: Convert your data into a Book class with methods like checkout() and return_book()
-# TODO: Add a simple menu that allows the user to choose different options like view, search, checkout, return, etc.
-
-# -------- Optional Advanced Features --------
-# You can implement these to move into Tier 4:
-# - Add a new book (via input) to the catalog
-# - Sort and display the top 3 most checked-out books
-# - Partial title/author search
-# - Save/load catalog to file (CSV or JSON)
-# - Anything else you want to build on top of the system!
-
-#if __name__ == "__main__":
-    # You can use this space to test your functions
-    #pass
+#Citations: https://docs.python.org/3/library/string.html, https://www.youtube.com/watch?v=6RAWUwWmlOg&list=PLR_yj1kstmmrtiO7O4lgv3M6Anm8bP5mV, https://www.youtube.com/watch?v=MZZSMaEAC2g&list=PLR_yj1kstmmrtiO7O4lgv3M6Anm8bP5mV&index=2, https://www.youtube.com/watch?v=4t10v2QmTHU&list=PLR_yj1kstmmrtiO7O4lgv3M6Anm8bP5mV&index=3
